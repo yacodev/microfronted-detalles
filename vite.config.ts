@@ -7,11 +7,16 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: 'home',
+      name: 'details',
       filename: 'remoteEntry.js',
-      exposes: {},
-      remotes: {},
-      shared: ['react', 'react-dom'],
+      exposes: {
+        './Header': './src/components/header.tsx',
+        './PokemonDetails': './src/pages/PokemonDetails.tsx',
+      },
+      remotes: {
+        host: 'http://localhost:3000/assets/remoteEntry.js',
+      },
+      shared: ['react', 'react-dom', 'zustand'],
     }),
   ],
   build: {
