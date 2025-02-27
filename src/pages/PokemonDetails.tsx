@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import useUserStore from 'host/store';
+import usePokemonStore from 'host/pokemonStore';
 import pokemonServices from 'host/pokemonServices';
 import { PokemonDetails as IPokemonDetails } from '../interface/pokemon.interface';
 
 const PokemonDetails: React.FC = () => {
-  const selectedPokemon = useUserStore((state) => state.selectedPokemon);
+  const { selectedPokemon, listSelectedPokemon } = usePokemonStore();
   console.log('selectedPokemon', selectedPokemon);
+  console.log('selectedPokemon', listSelectedPokemon);
   const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetails | null>(
     null
   );
@@ -16,7 +17,7 @@ const PokemonDetails: React.FC = () => {
       if (selectedPokemon?.url) {
         try {
           const details: IPokemonDetails =
-            await pokemonServices.getPokemonDetails(selectedPokemon.url);
+            await pokemonServices.getPokemonDetails(selectedPokemon.url!);
           if (details) {
             setPokemonDetails(details);
           }
@@ -29,7 +30,7 @@ const PokemonDetails: React.FC = () => {
     };
 
     fetchPokemonDetails();
-  }, [selectedPokemon?.url]);
+  }, [selectedPokemon]);
 
   if (!selectedPokemon || loading) {
     return (

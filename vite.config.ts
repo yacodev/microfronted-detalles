@@ -10,7 +10,6 @@ export default defineConfig({
       name: 'details',
       filename: 'remoteEntry.js',
       exposes: {
-        './Header': './src/components/header.tsx',
         './PokemonDetails': './src/pages/PokemonDetails.tsx',
       },
       remotes: {

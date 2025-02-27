@@ -1,12 +1,12 @@
-declare module 'host/store' {
+declare module 'host/pokemonStore' {
   interface Store {
-    name: string;
     selectedPokemon: Pokemon | null;
-    setName: (name: string) => void;
-    setSelectedPokemon: (pokemon: Pokemon | null) => void;
+    listSelectedPokemon: Pokemon[];
+    setSelectedPokemon: (pokemon: Pokemon) => void;
+    setListSelectedPokemon: (pokemon: Pokemon) => void;
   }
 
-  const useUserStore: {
+  const usePokemonStore: {
     (): Store;
     <T>(selector: (state: Store) => T): T;
   };
