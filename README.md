@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ApuestaTotal - challenge - Microfronted Detalles
 
-Currently, two official plugins are available:
+En este repositorio se utiliza el stack de React + TypeScript + Vite para desarrollar el reto frontend de la empresa Apuestatotal.
+Herramientas que se utilizaron:
+- Microfrontends
+- Tailwind
+- Zustand para el manejo de estado y la persistencia.
+- axios para obtener los datos de la API.
+- react-router-dom para la navegación
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Explicación del Microfrontend
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Este microfrontend tiene por objetivo mostrar los detalles de un pokemon seleccionado en el Host, y que fue almacenado en store mediante zustand 
 
-- Configure the top-level `parserOptions` property like this:
+## Estructura del repositorio
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+This repository has the following  organization:
+
+    ├── src                     # React - app
+        ├── components
+            ├── BasicInformation              # Component
+            ├── Physical                      # Component
+            ├── Skills                        # Component
+        ├── Page
+            ├── PokemonDetails                  # Page show pokemon details
+        ├── interfaces
+            ├── pokemon                  
+            ├── theme                  
+            
+    └── README.md                   # README
+
+## Run
+
+En caso de querer clonar el repositorio y probar localmente, haz lo siguiente:
+
+1. Clone el repositorio.
+2. Ejecutar:
+
+```bash
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+3.  completar las variables de entorno `env.template` con los datos de los otros 2 microfrontend
 ```
+VITE_HOST_URL=
+
+```
+4. Ejecutar
+
+```bash
+npm run dev
+```
+
+## Contacto
+* Linkedin: [carlos yaco](https://www.linkedin.com/in/carlos-yaco-tincusi/)
+* website: [web](https://carlosyaco.com)
+
+##  Licencia
+Este proyecto esta bajo la licencia [MIT](/LICENCE).

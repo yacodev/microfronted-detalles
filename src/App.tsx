@@ -1,12 +1,5 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import AppRoutes from './routes/AppRoutes';
-
 const App = () => {
-  return (
-    <Router>
-      <AppRoutes />
-    </Router>
-  );
+  return <p> Microfronten detalles</p>;
 };
 
 export default App;
