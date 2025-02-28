@@ -55,7 +55,11 @@ npm run dev
 
 ## Contacto
 * Linkedin: [carlos yaco](https://www.linkedin.com/in/carlos-yaco-tincusi/)
-* website: [web](https://carlosyaco.com)
+* website: [web](https://yacodev.com)
 
 ##  Licencia
 Este proyecto esta bajo la licencia [MIT](/LICENCE).
+
+## vista
+
+![vista ](https://github.com/yacodev/test/blob/1c56988130d4a2fd777d107ec6f7a355de9c5f66/src/assets/details.png)
