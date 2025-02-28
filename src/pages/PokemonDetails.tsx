@@ -3,6 +3,11 @@ import usePokemonStore from 'host/pokemonStore';
 import pokemonServices from 'host/pokemonServices';
 import { PokemonDetails as IPokemonDetails } from '../interface/pokemon.interface';
 import { FaArrowLeft } from 'react-icons/fa';
+import {
+  BasicInformation,
+  PhysicalCharacteristics,
+  Skills,
+} from '../components';
 
 const PokemonDetails: React.FC = () => {
   const { selectedPokemon, setListSelectedPokemon } = usePokemonStore();
@@ -78,85 +83,15 @@ const PokemonDetails: React.FC = () => {
           <div className='md:w-1/2 p-8'>
             {pokemonDetails && (
               <>
-                <div className='flex flex-col gap-4 mb-3'>
-                  <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                    Información básica
-                  </h2>
-                  <hr className='border-t border-gray-200 dark:border-gray-700 my-4' />
-                  <div className='flex flex-col gap-4'>
-                    <h5 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                      Experiencia base
-                    </h5>
-                    <p className='text-gray-600 dark:text-gray-300'>
-                      {pokemonDetails.base_experience}
-                    </p>
-                  </div>
-                  <div className='flex flex-col gap-4'>
-                    <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                      Especie
-                    </h2>
-                    <p className='text-gray-600 dark:text-gray-300'>
-                      {pokemonDetails.species.name}
-                    </p>
-                  </div>
-                  <div className='flex flex-col gap-4'>
-                    <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                      Tipo
-                    </h2>
-                    <div className='flex flex-col gap-4 mt-4'>
-                      {pokemonDetails.types?.map((type) => (
-                        <span
-                          key={type.type.name}
-                          className='px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-                        >
-                          {type.type.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <BasicInformation pokemonDetails={pokemonDetails} />
 
                 <hr className='border-t border-gray-200 dark:border-gray-700 my-6 mt-6' />
 
-                <div className='flex flex-col gap-4 mb-3'>
-                  <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                    Caracteristicas fisicas
-                  </h2>
-                  <div className='flex flex-col gap-4'>
-                    <h5 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                      Altura
-                    </h5>
-                    <p className='text-gray-600 dark:text-gray-300'>
-                      {pokemonDetails.height / 10} m
-                    </p>
-                  </div>
-                  <div className='flex flex-col gap-4'>
-                    <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                      Peso
-                    </h2>
-                    <p className='text-gray-600 dark:text-gray-300'>
-                      {pokemonDetails.weight / 10} kg
-                    </p>
-                  </div>
-                </div>
+                <PhysicalCharacteristics pokemonDetails={pokemonDetails} />
 
                 <hr className='border-t border-gray-200 dark:border-gray-700 my-6 mt-6' />
 
-                <div className='mt-6 flex flex-col gap-4'>
-                  <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                    Habilidades
-                  </h2>
-                  <div className='flex flex-col gap-4 mt-4'>
-                    {pokemonDetails.abilities?.map((ability) => (
-                      <span
-                        key={ability.ability.name}
-                        className='px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-                      >
-                        {ability.ability.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <Skills pokemonDetails={pokemonDetails} />
               </>
             )}
           </div>
