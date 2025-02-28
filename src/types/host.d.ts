@@ -3,7 +3,7 @@ declare module 'host/pokemonStore' {
     selectedPokemon: Pokemon | null;
     listSelectedPokemon: Pokemon[];
     setSelectedPokemon: (pokemon: Pokemon) => void;
-    setListSelectedPokemon: (pokemon: Pokemon) => void;
+    setListSelectedPokemon: (pokemon: PokemonDetails) => void;
   }
 
   const usePokemonStore: {

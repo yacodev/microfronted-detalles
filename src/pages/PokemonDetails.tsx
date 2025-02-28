@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import usePokemonStore from 'host/pokemonStore';
 import pokemonServices from 'host/pokemonServices';
 import { PokemonDetails as IPokemonDetails } from '../interface/pokemon.interface';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const PokemonDetails: React.FC = () => {
-  const { selectedPokemon, listSelectedPokemon } = usePokemonStore();
-  console.log('selectedPokemon', selectedPokemon);
-  console.log('selectedPokemon', listSelectedPokemon);
+  const { selectedPokemon, setListSelectedPokemon } = usePokemonStore();
   const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetails | null>(
     null
   );
@@ -20,6 +19,7 @@ const PokemonDetails: React.FC = () => {
             await pokemonServices.getPokemonDetails(selectedPokemon.url!);
           if (details) {
             setPokemonDetails(details);
+            setListSelectedPokemon(details);
           }
         } catch (error) {
           console.error('Error fetching pokemon details:', error);
@@ -31,6 +31,11 @@ const PokemonDetails: React.FC = () => {
 
     fetchPokemonDetails();
   }, [selectedPokemon]);
+
+  const handleGoBack = () => {
+    window.history.pushState({}, '', '/pokemons');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
 
   if (!selectedPokemon || loading) {
     return (
@@ -44,9 +49,18 @@ const PokemonDetails: React.FC = () => {
 
   return (
     <div className='min-h-screen bg-gray-100 dark:bg-gray-900 p-8'>
+      <div className='max-w-4xl mx-auto mb-4'>
+        <button
+          onClick={handleGoBack}
+          className='flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors'
+        >
+          <FaArrowLeft />
+          <span>Volver</span>
+        </button>
+      </div>
+
       <div className='max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden'>
         <div className='md:flex'>
-          {/* Imagen y detalles básicos */}
           <div className='md:w-1/2 p-8 bg-gray-50 dark:bg-gray-700'>
             <img
               src={selectedPokemon.sprites.front_default}
@@ -61,58 +75,78 @@ const PokemonDetails: React.FC = () => {
             </p>
           </div>
 
-          {/* Estadísticas y detalles */}
           <div className='md:w-1/2 p-8'>
             {pokemonDetails && (
               <>
-                {/* Tipos */}
-                {/* <div className='mb-6'>
+                <div className='flex flex-col gap-4 mb-3'>
                   <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                    Tipos
+                    Información básica
                   </h2>
-                  <div className='flex gap-2'>
-                    {pokemonDetails.abilities ?.map((ability) => (
-                      <span
-                        key={ability.ability.name}
-                        className='px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100'
-                      >
-                        {ability.ability.name}
-                      </span>
-                    ))}
+                  <hr className='border-t border-gray-200 dark:border-gray-700 my-4' />
+                  <div className='flex flex-col gap-4'>
+                    <h5 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
+                      Experiencia base
+                    </h5>
+                    <p className='text-gray-600 dark:text-gray-300'>
+                      {pokemonDetails.base_experience}
+                    </p>
                   </div>
-                </div> */}
+                  <div className='flex flex-col gap-4'>
+                    <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
+                      Especie
+                    </h2>
+                    <p className='text-gray-600 dark:text-gray-300'>
+                      {pokemonDetails.species.name}
+                    </p>
+                  </div>
+                  <div className='flex flex-col gap-4'>
+                    <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
+                      Tipo
+                    </h2>
+                    <div className='flex flex-col gap-4 mt-4'>
+                      {pokemonDetails.types?.map((type) => (
+                        <span
+                          key={type.type.name}
+                          className='px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
+                        >
+                          {type.type.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
-                {/* Estadísticas */}
-                {/* <div className='mb-6'>
+                <hr className='border-t border-gray-200 dark:border-gray-700 my-6 mt-6' />
+
+                <div className='flex flex-col gap-4 mb-3'>
                   <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
-                    Estadísticas
+                    Caracteristicas fisicas
                   </h2>
-                  <div className='space-y-2'>
-                    {pokemonDetails.stats?.map((stat) => (
-                      <div key={stat.stat.name}>
-                        <div className='flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-1'>
-                          <span className='capitalize'>{stat.stat.name}</span>
-                          <span>{stat.base_stat}</span>
-                        </div>
-                        <div className='w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2'>
-                          <div
-                            className='bg-blue-500 h-2 rounded-full'
-                            style={{
-                              width: `${(stat.base_stat / 255) * 100}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
+                  <div className='flex flex-col gap-4'>
+                    <h5 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
+                      Altura
+                    </h5>
+                    <p className='text-gray-600 dark:text-gray-300'>
+                      {pokemonDetails.height / 10} m
+                    </p>
                   </div>
-                </div> */}
+                  <div className='flex flex-col gap-4'>
+                    <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
+                      Peso
+                    </h2>
+                    <p className='text-gray-600 dark:text-gray-300'>
+                      {pokemonDetails.weight / 10} kg
+                    </p>
+                  </div>
+                </div>
 
-                {/* Habilidades */}
-                <div>
+                <hr className='border-t border-gray-200 dark:border-gray-700 my-6 mt-6' />
+
+                <div className='mt-6 flex flex-col gap-4'>
                   <h2 className='text-xl font-semibold text-gray-900 dark:text-white mb-3'>
                     Habilidades
                   </h2>
-                  <div className='flex flex-wrap gap-2'>
+                  <div className='flex flex-col gap-4 mt-4'>
                     {pokemonDetails.abilities?.map((ability) => (
                       <span
                         key={ability.ability.name}
