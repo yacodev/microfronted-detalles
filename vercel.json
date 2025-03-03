@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/assets/remoteEntry.js",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -10,18 +10,12 @@
         {
           "key": "Access-Control-Allow-Methods",
           "value": "GET, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Origin, Content-Type, Accept"
         }
       ]
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, Accept"
-      }
     }
   ]
 }
